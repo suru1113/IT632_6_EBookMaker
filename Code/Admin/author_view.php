@@ -7,16 +7,18 @@ session_start();
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="UTF-8">
-  <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="./style.css">
 
-  <!-- Boxicons CDN Link -->
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <!-- CSS only -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <style>
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- CSS only -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- <style>
     /* body {font-family: Arial, Helvetica, sans-serif;} */
 
     /* The Modal (background) */
@@ -122,107 +124,110 @@ include "../database/connect.php";
 
 $id = $_SESSION['ad_id'];
 
+$aid = $_GET['id'];
+
 $que1 = mysqli_query($con, "SELECT * FROM admin_data WHERE admin_id=$id");
 $arr1 = mysqli_fetch_array($que1);
 
-$que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified");
+$que2 = mysqli_query($con, "SELECT * FROM author_data WHERE author_id=$aid");
+$arr2 = mysqli_fetch_array($que2);
 
 ?>
 
 <body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <i class='bx bx-user bx-flashing'></i>
-      <span class="logo_name">Admin Pannel</span>
-    </div>
-    <ul class="nav-links">
-      <li>
-        <a href="./index.php">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-      </li>
-      <!-- <li>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bx-user bx-flashing'></i>
+            <span class="logo_name">Admin Pannel</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="./index.php">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-box'></i>
           <span class="links_name">Product</span>
         </a>
       </li> -->
-      <li>
-        <a href="./author.php" class="active">
-          <i class='bx bx-list-ul'></i>
-          <span class="links_name">Author list</span>
-        </a>
-      </li>
-      <!-- <li>
+            <li>
+                <a href="./author.php">
+                    <i class='bx bx-list-ul'></i>
+                    <span class="links_name">Author list</span>
+                </a>
+            </li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-pie-chart-alt-2'></i>
           <span class="links_name">Analytics</span>
         </a>
       </li> -->
-      <!-- <li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-coin-stack'></i>
           <span class="links_name">Stock</span>
         </a>
       </li> -->
-      <!-- <li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-book-alt'></i>
           <span class="links_name">Total order</span>
         </a>
       </li> -->
-      <li>
-        <a href="./profile.php">
-          <i class='bx bx-user'></i>
-          <span class="links_name">Profile</span>
-        </a>
-      </li>
-      <!-- <li>
+            <li>
+                <a href="./profile.php">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Profile</span>
+                </a>
+            </li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-message'></i>
           <span class="links_name">Messages</span>
         </a>
       </li> -->
-      <!-- <li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-heart'></i>
           <span class="links_name">Favrorites</span>
         </a>
       </li> -->
-      <!-- <li>
+            <!-- <li>
         <a href="#">
           <i class='bx bx-cog'></i>
           <span class="links_name">Setting</span>
         </a>
       </li> -->
-      <li class="log_out">
-        <a href="../logout.php">
-          <i class='bx bx-log-out'></i>
-          <span class="links_name">Log out</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <section class="home-section">
-    <nav>
-      <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Dashboard</span>
-      </div>
-      <!-- <div class="search-box">
+            <li class="log_out">
+                <a href="../logout.php">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Log out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <nav>
+            <div class="sidebar-button">
+                <i class='bx bx-menu sidebarBtn'></i>
+                <span class="dashboard">Dashboard</span>
+            </div>
+            <!-- <div class="search-box">
         <input type="text" placeholder="Search...">
         <i class='bx bx-search' ></i>
       </div> -->
-      <div class="profile-details">
-        <!-- <img src="images/profile.jpg" alt=""> -->
-        <i class='bx bx-user'></i>
-        <a href="./profile.php"><span class="admin_name"><?php echo $arr1['admin_first_name'], " ", $arr1['admin_last_name'];  ?></span></a>
-      </div>
-    </nav>
+            <div class="profile-details">
+                <!-- <img src="images/profile.jpg" alt=""> -->
+                <i class='bx bx-user'></i>
+                <a href="./profile.php"><span class="admin_name"><?php echo $arr1['admin_first_name'], " ", $arr1['admin_last_name'];  ?></span></a>
+            </div>
+        </nav>
 
-    <div class="home-content">
-      <!-- <div class="overview-boxes">
+        <div class="home-content">
+            <!-- <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
             <div class="box-topic">Total Order</div>
@@ -269,53 +274,59 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
         </div>
       </div> -->
 
-      <div class="sales-boxes">
-        <div class="recent-sales box">
-          <div class="title">unVerified Author List</div>
-          <div class="sales-details">
-            <table>
-              <tr>
-                <th style="text-align: center;">Id</th>
-                <th style="text-align: center;">Name</th>
-                <th style="text-align: center;">View</th>
-                <th style="text-align: center;">Total Books</th>
-                <th style="text-align: center;">Status</th>
-              </tr>
-              <?php
-              while ($arr2 = mysqli_fetch_array($que2)) {
-              ?>
-                <tr>
-                  <td><?php echo $arr2['author_id']; ?></td>
-                  <td><?php echo $arr2['author_first_name'], " ", $arr2['author_last_name']; ?></td>
-                  <td><a href="./author_view.php?id=<?php echo $arr2['author_id']; ?>"><button>View</button></a></td>
-                  <?php
-                  if ($arr2['author_verified'] == 0) {
-                  ?>
-                    <td>0</td>
-                    <td><a href="./author_verified.php?status=1&id=<?php echo $arr2['author_id']; ?>"><button class="author-unverified-button">UnVerified</button></a></td>
-                  <?php
-                  } else {
-                    $tmpid = $arr2['author_id'];
-                    $tmpq = mysqli_query($con, "SELECT * FROM ebook_data WHERE author_id=$tmpid");
-                    $tmparr = mysqli_num_rows($tmpq);
-                  ?>
+            <div class="sales-boxes">
+                <div class="recent-sales box">
+                    <div class="title">Author Data</div>
+                    <div class="sales-details">
+                        <table>
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                            </tr>
 
-                    <td><?php echo $tmparr; ?></td>
-                    <td><a href="./author_verified.php?status=0&id=<?php echo $arr2['author_id']; ?>"><button class="author-verified-button">Verified</button></a></td>
-                  <?php
-                  }
-                  ?>
-                </tr>
-              <?php
-              }
-              ?>
-            </table>
-          </div>
-        </div>
-      </div>
+                            <tr>
+                                <td>ID</td>
+                                <td><?php echo $arr2['author_id']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td><?php echo $arr2['author_first_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td><?php echo $arr2['author_last_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><?php echo $arr2['author_email']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                <td><?php echo $arr2['author_phone_no']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td><?php echo $arr2['author_gender']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td><?php echo $arr2['author_city']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>State</td>
+                                <td><?php echo $arr2['author_state']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>PinCode</td>
+                                <td><?php echo $arr2['author_pincode']; ?></td>
+                            </tr>
 
-      
-      <!-- <div class="top-sales box">
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- <div class="top-sales box">
           <div class="title">Top Seling Product</div>
           <ul class="top-sales-details">
             <li>
@@ -375,10 +386,10 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
             </li>
           </ul>
         </div> -->
-    </div>
-    </div>
-  </section>
-  <!-- <div id="myModal" class="modal">
+            </div>
+        </div>
+    </section>
+    <!-- <div id="myModal" class="modal">
 
     Modal content
     <div class="modal-content">
@@ -396,9 +407,9 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
     </div>
   </div> -->
 
-  </div>
+    </div>
 
-  <!-- <script>
+    <!-- <script>
     function openModel(){
       var modal = document.getElementById("myModal");
       modal.style.display = "block";
@@ -433,7 +444,7 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
     }
   </script> -->
 
-  <script src="./script.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 
