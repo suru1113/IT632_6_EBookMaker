@@ -125,7 +125,7 @@ $id = $_SESSION['ad_id'];
 $que1 = mysqli_query($con, "SELECT * FROM admin_data WHERE admin_id=$id");
 $arr1 = mysqli_fetch_array($que1);
 
-$que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified");
+$que2 = mysqli_query($con, "SELECT * FROM ebook_data");
 
 ?>
 
@@ -142,14 +142,14 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
           <span class="links_name">Dashboard</span>
         </a>
       </li>
-      <!-- <li>
-        <a href="#">
-          <i class='bx bx-box'></i>
-          <span class="links_name">Product</span>
-        </a>
-      </li> -->
       <li>
-        <a href="./author.php" class="active">
+        <a href="./book_review.php" class="active">
+          <i class='bx bx-box'></i>
+          <span class="links_name">Book</span>
+        </a>
+      </li>
+      <li>
+        <a href="./author.php">
           <i class='bx bx-list-ul'></i>
           <span class="links_name">Author list</span>
         </a>
@@ -271,37 +271,30 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
 
       <div class="sales-boxes">
         <div class="recent-sales box">
-          <div class="title">unVerified Author List</div>
+          <div class="title">Book List</div>
           <div class="sales-details">
             <table>
               <tr>
                 <th style="text-align: center;">Id</th>
                 <th style="text-align: center;">Name</th>
                 <th style="text-align: center;">View</th>
-                <th style="text-align: center;">Total Books</th>
-                <th style="text-align: center;">Status</th>
+                <th style="text-align: center;">Book Varified</th>
               </tr>
               <?php
               while ($arr2 = mysqli_fetch_array($que2)) {
               ?>
                 <tr>
-                  <td><?php echo $arr2['author_id']; ?></td>
-                  <td><?php echo $arr2['author_first_name'], " ", $arr2['author_last_name']; ?></td>
-                  <td><a href="./author_view.php?id=<?php echo $arr2['author_id']; ?>"><button>View</button></a></td>
+                  <td><?php echo $arr2['book_id']; ?></td>
+                  <td><?php echo $arr2['book_title']; ?></td>
+                  <td><a href="./author_view.php?id=<?php echo $arr2['book_id']; ?>"><button>View</button></a></td>
                   <?php
-                  if ($arr2['author_verified'] == 0) {
+                  if ($arr2['book_varified'] == 0) {
                   ?>
-                    <td>0</td>
-                    <td><a href="./author_verified.php?status=1&id=<?php echo $arr2['author_id']; ?>"><button class="author-unverified-button">UnVerified</button></a></td>
+                    <td><a href="./author_verified.php?status=1&id=<?php echo $arr2['book_id']; ?>"><button class="author-unverified-button">UnVerified</button></a></td>
                   <?php
                   } else {
-                    $tmpid = $arr2['author_id'];
-                    $tmpq = mysqli_query($con, "SELECT * FROM ebook_data WHERE author_id=$tmpid");
-                    $tmparr = mysqli_num_rows($tmpq);
                   ?>
-
-                    <td><?php echo $tmparr; ?></td>
-                    <td><a href="./author_verified.php?status=0&id=<?php echo $arr2['author_id']; ?>"><button class="author-verified-button">Verified</button></a></td>
+                    <td><a href="./author_verified.php?status=0&id=<?php echo $arr2['book_id']; ?>"><button class="author-verified-button">Verified</button></a></td>
                   <?php
                   }
                   ?>
@@ -311,11 +304,10 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
               ?>
             </table>
           </div>
-        </div>
-      </div>
 
-      
-      <!-- <div class="top-sales box">
+        </div>
+
+        <!-- <div class="top-sales box">
           <div class="title">Top Seling Product</div>
           <ul class="top-sales-details">
             <li>
@@ -375,7 +367,7 @@ $que2 = mysqli_query($con, "SELECT * FROM author_data order by author_verified")
             </li>
           </ul>
         </div> -->
-    </div>
+      </div>
     </div>
   </section>
   <!-- <div id="myModal" class="modal">
