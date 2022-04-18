@@ -17,6 +17,9 @@ session_start();
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- richtextbox -->
+  <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>  
+
 </head>
 
 <?php
@@ -25,8 +28,12 @@ include "../database/connect.php";
 
 $id = $_SESSION['au_id'];
 
-$que = mysqli_query($con, "SELECT * FROM author_data WHERE author_id=$id");
-$arr1 = mysqli_fetch_array($que);
+$que1 = mysqli_query($con, "SELECT * FROM author_data WHERE author_id=$id");
+$arr1 = mysqli_fetch_array($que1);
+
+$bid = $_GET['id'];
+$que2 = mysqli_query($con, "SELECT * FROM ebook_data WHERE book_id=$bid");
+$arr2 = mysqli_fetch_array($que2);
 
 ?>
 
@@ -34,10 +41,10 @@ $arr1 = mysqli_fetch_array($que);
 <div class="sidebar">
     <div class="logo-details">
       <i class='bx bx-user bx-flashing'></i>
-      <span class="logo_name">Admin Pannel</span>
+      <span class="logo_name">Author Pannel</span>
     </div>
     <ul class="nav-links">
-    <li>
+      <li>
         <a href="./index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Dashboard</span>
@@ -74,7 +81,7 @@ $arr1 = mysqli_fetch_array($que);
         </a>
       </li> -->
       <li>
-        <a href="./profile.php"  class="active">
+        <a href="./profile.php">
           <i class='bx bx-user'></i>
           <span class="links_name">Profile</span>
         </a>
@@ -172,75 +179,43 @@ $arr1 = mysqli_fetch_array($que);
 
       <div class="sales-boxes">
         <div class="recent-sales box">
-          <div class="title">Admin Profile</div>
+          <div class="title">Edit Book</div>
           <div class="sales-details">
-            <form action="./update_profile.php" method="post" autocomplete="nope">
-                  <input type="hidden" name="id" value="<?php echo $arr1['author_id'];?>">
-                
-                  <label>First Name</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="text" name="fname" minlength="2" value="<?php echo $arr1['author_first_name'];?>" placeholder="Enter your First name" required>
-                
-                
-                  <label>Last Name</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="text" name="lname" minlength="2" value="<?php echo $arr1['author_last_name'];?>" placeholder="Enter your Last name" required>
-                
-                
-                  <label>Email</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="email" name="email" value="<?php echo $arr1['author_email'];?>" placeholder="Enter your email" required>
-                
-                
-                  <label>Phone Number</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="number" name="number" value="<?php echo $arr1['author_phone_no'];?>" placeholder="Enter your number" min="5555555555" max="9999999999" required>
-                
-                
-                  <label>Password</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="password" name="pass" minlength="3"  value="<?php echo $arr1['author_password'];?>" placeholder="Enter your password" required>
-                
-                
-                  <label>Confirm Password</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="password" name="cpass" minlength="3" value="<?php echo $arr1['author_password'];?>" placeholder="Confirm your password" required>
-                
-                
-                  <label>City</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="text" name="city" value="<?php echo $arr1['author_city'];?>" placeholder="Enter your city" required>
-                
-                
-                  <label>State</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="text" name="state" value="<?php echo $arr1['author_state'];?>" placeholder="Enter your stste" required>
-                
-                
-                  <label>Pincode</label>
-                  <input class="admin-profile-form-text" autocomplete="nope" type="number" name="pcode" min="100001" max="999999" value="<?php echo $arr1['author_pincode'];?>" placeholder="Enter your Pincode" required>
-                
-              
-                <label>Gender</label><br>
+            <form action="./edit_book.php?id=<?php echo $bid; ?>" method="post" autocomplete="nope">
 
-                <?php if($arr1['author_gender']=='Male') { ?>
-                  <input type="radio" name="gender" value="Male" id="dot-1" checked>
-                <?php } else { ?>
-                  <input type="radio" name="gender" value="Male" id="dot-1">
-                  <?php } ?>
-                <label>Male</label><br>
+                  <label>Book Title</label>
+                  <input class="admin-profile-form-text" autocomplete="nope" type="text" value="<?php echo $arr2['book_title']; ?>" name="book-title" minlength="2" value="" placeholder="Enter Book Title" required>
+                  <label>Book Description</label>
+                  <textarea class="admin-profile-form-text" autocomplete="nope" name="book-description" minlength="2" rows="4" cols="100%" value="" placeholder="Enter Book Description" required><?php echo $arr2['book_description']; ?></textarea>
+                  <label>Book Cover</label>
+                  <select name="book-cover">
+                    <?php 
+                    if($arr2['book_cover'] == "cover1"){
+                    ?>
+                    <option value="cover1">Cover 1</option>
+                    <option value="cover2">Cover 2</option>
+                    <option value="cover3">Cover 3</option>
+                    <?php } ?>
 
-                <?php if($arr1['author_gender']=='Female') { ?>
-                  <input type="radio" name="gender" value="Female" id="dot-2" checked>
-                <?php } else { ?>
-                  <input type="radio" name="gender" value="Female" id="dot-2">
-                  <?php } ?>
-                <label>Female</label><br>
+                    <?php 
+                    if($arr2['book_cover'] == "cover2"){
+                    ?>
+                    <option value="cover1">Cover 1</option>
+                    <option value="cover2" selected>Cover 2</option>
+                    <option value="cover3">Cover 3</option>
+                    <?php } ?>
 
-                <?php if($arr1['author_gender']=='Other') { ?>
-                  <input type="radio" name="gender" value="Other" id="dot-3" checked>
-                <?php } else { ?>
-                  <input type="radio" name="gender" value="Other" id="dot-3">
-                  <?php } ?>
-                <label>Other</label><br><br>
-                
-                
-                
-            
-              
-                <input class="admin-profile-form-submit" type="submit" name="sb" value="Update Profile">
+                    <?php 
+                    if($arr2['book_cover'] == "cover3"){
+                    ?>
+                    <option value="cover1">Cover 1</option>
+                    <option value="cover2">Cover 2</option>
+                    <option value="cover3" selected>Cover 3</option>
+                    <?php } ?>
+                  </select>
+                  <label>Book Data</label>
+                  <textarea name="book-data" autocomplete="nope" minlength="12" rows="12" cols="100%" placeholder="Enter Book Data" required><?php echo $arr2['book_data']; ?></textarea>
+                <input class="admin-profile-form-submit" type="submit" name="sb" value="Add New Book">
               
             </form>
           </div>
@@ -311,8 +286,39 @@ $arr1 = mysqli_fetch_array($que);
     </div>
   </section>
 
-  <script src="./script.js"></script>
-
+  <script src="./script.js">
+  </script>
+  <script>
+      CKEDITOR.replace('book-data');
+      var editor_data = CKEDITOR.instances['book-data'].getData();
+  </script>
 </body>
 
 </html>
+
+<?php
+
+if(isset($_POST['sb'])){
+    $booktitle = $_POST['book-title'];
+    $bookdescription = $_POST['book-description'];
+    $authorId = $arr1['author_id'];
+    $bookdata = $_POST['book-data'];
+    $bookcover = $_POST['book-cover'];
+
+    $que2 = mysqli_query($con, "SELECT * FROM ebook_data WHERE book_title='$booktitle'");
+    if(mysqli_num_rows($que2)!=1){
+        echo "<script LANGUAGE='JavaScript'>
+        window.alert('Book Title Not Valid');
+        </script>";
+    }
+    else{
+        mysqli_query($con,"UPDATE ebook_data SET book_title='$booktitle',book_description='$bookdescription',book_cover='$bookcover',book_data='$bookdata',author_id='$authorId' WHERE book_title='$booktitle'");
+        echo "<script LANGUAGE='JavaScript'>
+        window.alert('New Book Data Add Succesfully...');
+        </script>";
+    }
+
+    // header("location: ./book.php");
+}
+
+?>

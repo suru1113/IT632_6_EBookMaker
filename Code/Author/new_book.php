@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
@@ -5,30 +9,42 @@
 <head>
   <meta charset="UTF-8">
   <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
-  <link rel="stylesheet" href="style.css">
-  <!-- Boxicons CDN Link -->
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./style.css">
 
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <!-- CSS only -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
+<?php
+
+include "../database/connect.php";
+
+$id = $_SESSION['au_id'];
+
+$que1 = mysqli_query($con, "SELECT * FROM author_data WHERE author_id=$id");
+$arr1 = mysqli_fetch_array($que1);
+
+?>
+
 <body>
-  <div class="sidebar">
+<div class="sidebar">
     <div class="logo-details">
       <i class='bx bx-user bx-flashing'></i>
-      <span class="logo_name">Admin Pannel</span>
+      <span class="logo_name">Author Pannel</span>
     </div>
     <ul class="nav-links">
       <li>
-        <a href="./index.php" class="active">
+        <a href="./index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Dashboard</span>
         </a>
       </li>
       <li>
-        <a href="./new_book.php">
+        <a href="./new_book.php" class="active">
           <i class='bx bx-box'></i>
           <span class="links_name">New Book</span>
         </a>
@@ -40,29 +56,23 @@
         </a>
       </li>
       <!-- <li>
-          <a href="#">
-            <i class='bx bx-list-ul' ></i>
-            <span class="links_name">Order list</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-pie-chart-alt-2' ></i>
-            <span class="links_name">Analytics</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-coin-stack' ></i>
-            <span class="links_name">Stock</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-book-alt' ></i>
-            <span class="links_name">Total order</span>
-          </a>
-        </li> -->
+        <a href="#">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="links_name">Analytics</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a href="#">
+          <i class='bx bx-coin-stack'></i>
+          <span class="links_name">Stock</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a href="#">
+          <i class='bx bx-book-alt'></i>
+          <span class="links_name">Total order</span>
+        </a>
+      </li> -->
       <li>
         <a href="./profile.php">
           <i class='bx bx-user'></i>
@@ -70,23 +80,23 @@
         </a>
       </li>
       <!-- <li>
-          <a href="#">
-            <i class='bx bx-message' ></i>
-            <span class="links_name">Messages</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-heart' ></i>
-            <span class="links_name">Favrorites</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-cog' ></i>
-            <span class="links_name">Setting</span>
-          </a>
-        </li> -->
+        <a href="#">
+          <i class='bx bx-message'></i>
+          <span class="links_name">Messages</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a href="#">
+          <i class='bx bx-heart'></i>
+          <span class="links_name">Favrorites</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a href="#">
+          <i class='bx bx-cog'></i>
+          <span class="links_name">Setting</span>
+        </a>
+      </li> -->
       <li class="log_out">
         <a href="../logout.php">
           <i class='bx bx-log-out'></i>
@@ -108,25 +118,25 @@
       <div class="profile-details">
         <!-- <img src="images/profile.jpg" alt=""> -->
         <i class='bx bx-user'></i>
-        <a href="http://"><span class="admin_name">Prem Shahi</span></a>
+        <a href="./profile.php"><span class="admin_name"><?php echo $arr1['author_first_name'], " ", $arr1['author_last_name'];  ?></span></a>
       </div>
     </nav>
 
     <div class="home-content">
-      <div class="overview-boxes">
+      <!-- <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Book</div>
-            <div class="number">0</div>
-            <!-- <div class="indicator">
+            <div class="box-topic">Total Order</div>
+            <div class="number">40,876</div>
+            <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
               <span class="text">Up from yesterday</span>
-            </div> -->
+            </div>
           </div>
-          <!-- <i class='bx bx-cart-alt cart'></i> -->
+          <i class='bx bx-cart-alt cart'></i>
         </div>
         <div class="box">
-          <!-- <div class="right-side">
+          <div class="right-side">
             <div class="box-topic">Total Sales</div>
             <div class="number">38,876</div>
             <div class="indicator">
@@ -134,10 +144,10 @@
               <span class="text">Up from yesterday</span>
             </div>
           </div>
-          <i class='bx bxs-cart-add cart two' ></i> -->
+          <i class='bx bxs-cart-add cart two'></i>
         </div>
         <div class="box">
-          <!-- <div class="right-side">
+          <div class="right-side">
             <div class="box-topic">Total Profit</div>
             <div class="number">$12,876</div>
             <div class="indicator">
@@ -145,10 +155,10 @@
               <span class="text">Up from yesterday</span>
             </div>
           </div>
-          <i class='bx bx-cart cart three' ></i> -->
+          <i class='bx bx-cart cart three'></i>
         </div>
         <div class="box">
-          <!-- <div class="right-side">
+          <div class="right-side">
             <div class="box-topic">Total Return</div>
             <div class="number">11,086</div>
             <div class="indicator">
@@ -156,66 +166,30 @@
               <span class="text">Down From Today</span>
             </div>
           </div>
-          <i class='bx bxs-cart-download cart four' ></i> -->
+          <i class='bx bxs-cart-download cart four' ></i>
         </div>
-      </div>
+      </div> -->
 
       <div class="sales-boxes">
         <div class="recent-sales box">
-          <div class="title">Data</div>
+          <div class="title">New Book</div>
           <div class="sales-details">
-            <!-- <ul class="details">
-              <li class="topic">Date</li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-              <li><a href="#">02 Jan 2021</a></li>
-            </ul>
-            <ul class="details">
-            <li class="topic">Customer</li>
-            <li><a href="#">Alex Doe</a></li>
-            <li><a href="#">David Mart</a></li>
-            <li><a href="#">Roe Parter</a></li>
-            <li><a href="#">Diana Penty</a></li>
-            <li><a href="#">Martin Paw</a></li>
-            <li><a href="#">Doe Alex</a></li>
-            <li><a href="#">Aiana Lexa</a></li>
-            <li><a href="#">Rexel Mags</a></li>
-             <li><a href="#">Tiana Loths</a></li>
-          </ul>
-          <ul class="details">
-            <li class="topic">Sales</li>
-            <li><a href="#">Delivered</a></li>
-            <li><a href="#">Pending</a></li>
-            <li><a href="#">Returned</a></li>
-            <li><a href="#">Delivered</a></li>
-            <li><a href="#">Pending</a></li>
-            <li><a href="#">Returned</a></li>
-            <li><a href="#">Delivered</a></li>
-             <li><a href="#">Pending</a></li>
-            <li><a href="#">Delivered</a></li>
-          </ul>
-          <ul class="details">
-            <li class="topic">Total</li>
-            <li><a href="#">$204.98</a></li>
-            <li><a href="#">$24.55</a></li>
-            <li><a href="#">$25.88</a></li>
-            <li><a href="#">$170.66</a></li>
-            <li><a href="#">$56.56</a></li>
-            <li><a href="#">$44.95</a></li>
-            <li><a href="#">$67.33</a></li>
-             <li><a href="#">$23.53</a></li>
-             <li><a href="#">$46.52</a></li>
-          </ul> -->
+            <form action="./new_book.php" method="post" autocomplete="nope">
+                
+                  <label>Book Title</label>
+                  <input class="admin-profile-form-text" autocomplete="nope" type="text" name="book-title" minlength="2" value="" placeholder="Enter Book Title" required>
+                
+                  <label>Book Description</label>
+                  <textarea class="admin-profile-form-text" autocomplete="nope" name="book-description" minlength="2" rows="4" cols="100%" value="" placeholder="Enter Book Description" required></textarea>
+                  
+                <input class="admin-profile-form-submit" type="submit" name="sb" value="Add New Book">
+              
+            </form>
           </div>
-          <!-- <div class="button">
-            <a href="#">See All</a>
-          </div> -->
-          <!-- </div>
-        <div class="top-sales box">
+
+        </div>
+
+        <!-- <div class="top-sales box">
           <div class="title">Top Seling Product</div>
           <ul class="top-sales-details">
             <li>
@@ -275,12 +249,37 @@
             </li>
           </ul>
         </div> -->
-        </div>
       </div>
+    </div>
   </section>
 
-
   <script src="./script.js"></script>
+
 </body>
 
 </html>
+
+<?php
+
+if(isset($_POST['sb'])){
+    $booktitle = $_POST['book-title'];
+    $bookdescription = $_POST['book-description'];
+    $authorId = $arr1['author_id'];
+
+    $que2 = mysqli_query($con, "SELECT * FROM ebook_data WHERE book_title='$booktitle'");
+    if(mysqli_num_rows($que2)){
+        echo "<script LANGUAGE='JavaScript'>
+        window.alert('Book Title Not Valid');
+        window.location.href='./new_book.php';
+        </script>";
+    }
+    else{
+        mysqli_query($con,"INSERT INTO ebook_data(book_title,book_description,author_id) VALUES('$booktitle','$bookdescription','$authorId')");
+        echo "<script LANGUAGE='JavaScript'>
+        window.alert('New Book Add Succesfully...');
+        window.location.href='./book.php';
+        </script>";
+    }
+}
+
+?>

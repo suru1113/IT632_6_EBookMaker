@@ -373,6 +373,53 @@ nav .profile-details i{
   .admin-profile-form-submit:hover{
     background-color: #0A2599;
   }
+
+   /* book list table css */
+   table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 16px;
+  }
+
+  th:first-child,
+  td:first-child {
+    text-align: center;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2
+  }
+
+  .fa-check {
+    color: green;
+  }
+
+  .fa-remove {
+    color: red;
+  }
+
+  /* book verifide button css */
+.author-unverified-button{
+    background-color: red;
+    color: white;
+}
+
+.author-verified-button{
+    background-color: green;
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
   
 /* Responsive Media Query */
 @media (max-width: 1240px) {
