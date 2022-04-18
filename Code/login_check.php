@@ -10,6 +10,13 @@ if(isset($_POST['sb'])){
     $que = mysqli_query($con, "SELECT * FROM author_data WHERE author_email='$email' AND author_password='$pass'");
 
     if($r=mysqli_fetch_array($que)){
+        if($r['author_email_status']==0){
+            echo "<script LANGUAGE='JavaScript'>
+        window.alert('You Email Not Varifide...');
+        window.location.href='login.html';
+        </script>";
+        }
+        else{
         if($r['author_verified']==0){
             echo "<script LANGUAGE='JavaScript'>
         window.alert('You Are Not Varifide...');
@@ -20,6 +27,7 @@ if(isset($_POST['sb'])){
             $_SESSION['au_id'] = $r[0];
             header("Location: ./Author/index.php");
         }
+    }
     }
 
     $que = mysqli_query($con, "SELECT * FROM admin_data WHERE admin_email='$email' AND admin_password='$pass'");

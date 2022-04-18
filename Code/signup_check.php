@@ -13,15 +13,31 @@ if(isset($_POST['sb'])){
     $city = $_POST['city'];
     $state = $_POST['state'];
     $pcode = $_POST['pcode'];
-    $photo = '';
+    $email_status = 0;
     $status = 0;
 
     if($cpass==$pass){
-        mysqli_query($con,"INSERT INTO author_data(author_first_name,author_last_name,author_email,author_phone_no,author_password,author_gender,author_city,author_state,author_pincode) VALUES('$fname','$lname','$email','$number','$pass','$gender','$city','$state','$pcode')");
-        echo "<script LANGUAGE='JavaScript'>
-        window.alert('Registration Succesfully... Please LogIn....');
-        window.location.href='login.html';
+        $que1 = mysqli_query($con, "SELECT * FROM author_data WHERE author_email='$email'");
+        $arr1 = mysqli_fetch_array($que1);
+        if($arr1['author_email']==$email){
+            echo "<script LANGUAGE='JavaScript'>
+        window.alert('Email Alreaday Register... Please Use Again....');
+        window.location.href='signup.html';
         </script>";
+        }
+        else{
+        $que = mysqli_query($con,"INSERT INTO author_data(author_first_name,author_last_name,author_email,author_phone_no,author_password,author_gender,author_city,author_state,author_pincode,author_email_status) VALUES('$fname','$lname','$email','$number','$pass','$gender','$city','$state','$pcode','$email_status')");
+        if($que===true){
+            header("Location: ./email_check/index.php?email=$email");
+        }
+        else{
+            echo "<script LANGUAGE='JavaScript'>
+        window.alert('Registration Not Succesfully... Please Try Again....');
+        window.location.href='signup.html';
+        </script>";
+        }
+    }      
+        
     }
     else{
         echo "<script LANGUAGE='JavaScript'>
@@ -33,5 +49,3 @@ if(isset($_POST['sb'])){
 else{
     header("Location: signup.html");
 }
-
-?>
