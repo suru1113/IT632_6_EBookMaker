@@ -43,12 +43,12 @@ $arr1 = mysqli_fetch_array($que);
           <span class="links_name">Dashboard</span>
         </a>
       </li>
-      <!-- <li>
-        <a href="#">
+      <li>
+        <a href="./book_review.php">
           <i class='bx bx-box'></i>
-          <span class="links_name">Product</span>
+          <span class="links_name">Book</span>
         </a>
-      </li> -->
+      </li>
       <li>
         <a href="./author.php">
           <i class='bx bx-list-ul'></i>
